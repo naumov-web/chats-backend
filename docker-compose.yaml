@@ -1,0 +1,103 @@
+version: "3.5"
+
+networks:
+  default-network:
+    driver: bridge
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: deployment/local/nginx/Dockerfile
+    ports:
+      - "${DOCKER_NGINX_PORT}:80"
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - php-fpm
+    networks:
+      - default-network
+
+  php-fpm:
+    build:
+      context: .
+      dockerfile: deployment/local/php-fpm/Dockerfile
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - database_leader
+      - database_follower
+      - redis
+    container_name: chats_backend_php_fpm
+    networks:
+      - default-network
+
+  database_leader:
+    image: mysql:8.0.30
+    container_name: database_leader
+    restart: unless-stopped
+    ports:
+      - ${DATABASE_LEADER_EXTERNAL_PORT}:${DATABASE_LEADER_PORT}
+    volumes:
+      - ./data/database_leader:/var/lib/mysql
+      - ./deployment/local/database_leader/leader.cnf:/etc/my.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DATABASE_LEADER_PASSWORD}
+      - MYSQL_USER=${DATABASE_LEADER_USER}
+      - MYSQL_DATABASE=${DATABASE_LEADER_NAME}
+      - MYSQL_PASSWORD=${DATABASE_LEADER_PASSWORD}
+    networks:
+      - default-network
+
+  database_follower:
+    image: mysql:8.0.30
+    container_name: database_follower
+    restart: unless-stopped
+    depends_on:
+      - database_leader
+    ports:
+      - ${DATABASE_FOLLOWER_EXTERNAL_PORT}:${DATABASE_FOLLOWER_PORT}
+    volumes:
+      - ./data/database_follower:/var/lib/mysql
+      - ./deployment/local/database_follower/follower.cnf:/etc/my.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DATABASE_FOLLOWER_PASSWORD}
+      - MYSQL_USER=${DATABASE_FOLLOWER_USER}
+      - MYSQL_DATABASE=${DATABASE_FOLLOWER_NAME}
+      - MYSQL_PASSWORD=${DATABASE_FOLLOWER_PASSWORD}
+    networks:
+      - default-network
+
+  redis:
+    image: redis:4.0
+    ports:
+      - "${DOCKER_REDIS_PORT}:6379"
+    networks:
+      - default-network
+    container_name: redis
+
+  phpmyadmin_leader:
+    depends_on:
+      - database_leader
+    image: phpmyadmin
+    restart: always
+    ports:
+      - "9001:80"
+    environment:
+      PMA_HOST: database_leader
+      MYSQL_ROOT_PASSWORD: ${DATABASE_LEADER_PASSWORD}
+    networks:
+      - default-network
+
+  phpmyadmin_follower:
+    depends_on:
+      - database_follower
+    image: phpmyadmin
+    restart: always
+    ports:
+      - "9002:80"
+    environment:
+      PMA_HOST: database_follower
+      MYSQL_ROOT_PASSWORD: ${DATABASE_FOLLOWER_PASSWORD}
+    networks:
+      - default-network
