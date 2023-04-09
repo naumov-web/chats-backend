@@ -1,0 +1,54 @@
+swagger: "2.0"
+info:
+  title: Chats API
+  description: Docs for Chats API
+  version: 1.0.0
+schemes:
+  - http
+host: 127.0.0.1:31080
+basePath: /api
+
+securityDefinitions:
+  JWT:
+    type: apiKey
+    in: header
+    name: Authorization
+
+paths:
+
+  /v1/auth/register/random-account:
+    post:
+      tags:
+        - auth
+      summary: Register random account
+      description: Register random account without login and password
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: header
+          type: string
+          name: X-Locale
+          enum:
+            - ru
+            - en
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/RegisterRandomAccountSuccessResponseModel"
+
+definitions:
+
+  RegisterRandomAccountSuccessResponseModel:
+    type: object
+    properties:
+      success:
+        type: boolean
+      message:
+        type: string
+      token:
+        type: string
+      username:
+        type: string
