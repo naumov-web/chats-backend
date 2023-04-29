@@ -40,7 +40,7 @@ services:
       - ${DATABASE_LEADER_EXTERNAL_PORT}:${DATABASE_LEADER_PORT}
     volumes:
       - ./data/database_leader:/var/lib/mysql
-      - ./deployment/local/database_leader/leader.cnf:/etc/my.cnf
+      - ./deployment/local/database_leader/leader.cnf:/etc/mysql/conf.d/leader.cnf
     environment:
       - MYSQL_ROOT_PASSWORD=${DATABASE_LEADER_PASSWORD}
       - MYSQL_USER=${DATABASE_LEADER_USER}
@@ -59,7 +59,7 @@ services:
       - ${DATABASE_FOLLOWER_EXTERNAL_PORT}:${DATABASE_FOLLOWER_PORT}
     volumes:
       - ./data/database_follower:/var/lib/mysql
-      - ./deployment/local/database_follower/follower.cnf:/etc/my.cnf
+      - ./deployment/local/database_follower/follower.cnf:/etc/mysql/conf.d/follower.cnf
     environment:
       - MYSQL_ROOT_PASSWORD=${DATABASE_FOLLOWER_PASSWORD}
       - MYSQL_USER=${DATABASE_FOLLOWER_USER}
@@ -67,6 +67,13 @@ services:
       - MYSQL_PASSWORD=${DATABASE_FOLLOWER_PASSWORD}
     networks:
       - default-network
+
+  database_testing:
+    image: mysql:8.0.30
+    container_name: database_testing
+    restart: unless-stopped
+    ports:
+      - ${DATABASE_TESTING_EXTERNAL_PORT}:${DATABASE_FOLLOWER_PORT}
 
   redis:
     image: redis:4.0
