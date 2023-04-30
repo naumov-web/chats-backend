@@ -1,5 +1,5 @@
 #!/bin/bash
-sql_follower_user='CREATE USER "chats_user_follower"@"%" IDENTIFIED BY "follower_pwd"; GRANT REPLICATION SLAVE ON *.* TO "chats_user_follower"@"%"; FLUSH PRIVILEGES;'
+sql_follower_user='CREATE USER IF NOT EXISTS "chats_user_follower"@"%" IDENTIFIED WITH mysql_native_password BY "follower_pwd"; GRANT REPLICATION SLAVE ON *.* TO "chats_user_follower"@"%"; FLUSH PRIVILEGES;'
 docker exec database_leader sh -c "mysql -u root -pS3cret -e '$sql_follower_user'"
 MS_STATUS=`docker exec database_leader sh -c 'mysql -u root -pS3cret -e "SHOW MASTER STATUS"'`
 CURRENT_LOG=`echo $MS_STATUS | awk '{print $6}'`
