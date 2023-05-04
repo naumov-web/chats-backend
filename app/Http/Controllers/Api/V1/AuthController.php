@@ -74,7 +74,11 @@ final class AuthController extends BaseApiController
             $useCase->execute();
         } catch (UserWithUsernameAlreadyExistsException) {
             return \response()->json(
-                [],
+                [
+                    'errors' => [
+                        'username' => __('validation.user_already_registered')
+                    ]
+                ],
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
