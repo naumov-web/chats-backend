@@ -3,17 +3,15 @@
 namespace App\UseCases\User;
 
 use App\Models\User\Contracts\IUserService;
-use App\Models\User\DTO\UserAuthDTO;
 use App\Models\User\DTO\UserDTO;
+use App\UseCases\User\InputDTO\RegisterUserInputDTO;
 use App\UseCases\User\OutputDTO\RegisterUserOutputDTO;
-use Illuminate\Support\Str;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 /**
- * Class RegisterRandomUserUseCase
+ * Class RegisterUserUseCase
  * @package App\UseCases\User
  */
-final class RegisterRandomUserUseCase extends BaseUserUseCase
+final class RegisterUserUseCase extends BaseUserUseCase
 {
     /**
      * Output DTO instance
@@ -42,7 +40,7 @@ final class RegisterRandomUserUseCase extends BaseUserUseCase
      */
     protected function getInputDTOClass(): ?string
     {
-        return null;
+        return RegisterUserInputDTO::class;
     }
 
     /**
@@ -50,9 +48,15 @@ final class RegisterRandomUserUseCase extends BaseUserUseCase
      */
     public function execute(): void
     {
+        /**
+         * @var RegisterUserInputDTO $inputDto
+         */
+        $inputDto = $this->inputDto;
+
         $userDto = new UserDTO();
-        $userDto->username = Str::orderedUuid();
-        $userDto->isAnonymous = true;
+        $userDto->username = $inputDto->username;
+        $userDto->password = $inputDto->password;
+        $userDto->isAnonymous = false;
 
         $userDto = $this->service->create($userDto);
         $token = $this->getUserToken($userDto);

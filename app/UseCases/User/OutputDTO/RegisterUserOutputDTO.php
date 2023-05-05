@@ -6,7 +6,7 @@ namespace App\UseCases\User\OutputDTO;
  * Class RegisterRandomUserOutputDTO
  * @package App\UseCases\User\OutputDTO
  */
-final class RegisterRandomUserOutputDTO
+final class RegisterUserOutputDTO
 {
     /**
      * Token value

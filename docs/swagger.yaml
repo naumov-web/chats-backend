@@ -39,8 +39,42 @@ paths:
           schema:
             $ref: "#/definitions/RegisterRandomAccountSuccessResponseModel"
 
+  /v1/auth/register:
+    post:
+      tags:
+        - auth
+      summary: Register new account
+      description: Register new account with username and password
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: header
+          type: string
+          name: X-Locale
+          enum:
+            - ru
+            - en
+        - name: "RegisterAccountRequestBody"
+          in: body
+          description: "Request body for registration of new account"
+          required: true
+          schema:
+            $ref: "#/definitions/RegisterAccountRequestModel"
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/RegisterAccountSuccessResponseModel"
+        422:
+          description: "Validation error"
+          schema:
+            $ref: "#/definitions/DefaultErrorResponseModel"
+
 definitions:
 
+  # Register random account
   RegisterRandomAccountSuccessResponseModel:
     type: object
     properties:
@@ -52,3 +86,34 @@ definitions:
         type: string
       username:
         type: string
+
+  # Register account
+  RegisterAccountRequestModel:
+    type: object
+    required:
+      - username
+      - password
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+
+  RegisterAccountSuccessResponseModel:
+    type: object
+    properties:
+      success:
+        type: boolean
+      message:
+        type: string
+      token:
+        type: string
+      username:
+        type: string
+
+  # Common
+  DefaultErrorResponseModel:
+    type: object
+    properties:
+      errors:
+        type: object
