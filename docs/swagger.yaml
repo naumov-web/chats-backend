@@ -70,7 +70,44 @@ paths:
         422:
           description: "Validation error"
           schema:
+            $ref: "#/definitions/ValidationErrorResponseModel"
+
+  /v1/auth/login:
+    post:
+      tags:
+        - auth
+      summary: Authorize user
+      description: Authorize user by username and password
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: header
+          type: string
+          name: X-Locale
+          enum:
+            - ru
+            - en
+        - name: "LoginRequestBody"
+          in: body
+          description: "Request body for authorization"
+          required: true
+          schema:
+            $ref: "#/definitions/LoginRequestModel"
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/LoginResponseModel"
+        403:
+          description: "Forbidden"
+          schema:
             $ref: "#/definitions/DefaultErrorResponseModel"
+        422:
+          description: "Validation error"
+          schema:
+            $ref: "#/definitions/ValidationErrorResponseModel"
 
 definitions:
 
@@ -111,8 +148,38 @@ definitions:
       username:
         type: string
 
+  # Login
+  LoginRequestModel:
+    type: object
+    required:
+      - username
+      - password
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+
+  LoginResponseModel:
+    type: object
+    properties:
+      success:
+        type: boolean
+      message:
+        type: string
+      token:
+        type: string
+
   # Common
   DefaultErrorResponseModel:
+    type: object
+    properties:
+      success:
+        type: boolean
+      message:
+        type: string
+
+  ValidationErrorResponseModel:
     type: object
     properties:
       errors:

@@ -19,4 +19,10 @@ final class UseCaseSystemNamesEnum
      * @var string
      */
     public const REGISTER_USER = 'register_user';
+
+    /**
+     * Use case for login of user by username and password
+     * @var string
+     */
+    public const LOGIN_USER = 'login_user';
 }
