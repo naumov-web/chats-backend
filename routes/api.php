@@ -9,5 +9,6 @@ Route::prefix('/v1')
         Route::prefix('/auth')->group(function () {
             Route::post('register/random-account', 'AuthController@registerRandomUser');
             Route::post('register', 'AuthController@register');
+            Route::post('login', 'AuthController@login');
         });
     });

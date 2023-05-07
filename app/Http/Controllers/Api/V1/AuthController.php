@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Enums\UseCaseSystemNamesEnum;
 use App\Http\Controllers\Api\BaseApiController;
+use App\Http\Requests\Api\V1\Auth\LoginRequest;
 use App\Http\Requests\Api\V1\Auth\RegisterUserRequest;
 use App\Models\User\Exceptions\UserWithUsernameAlreadyExistsException;
 use App\UseCases\Base\Exceptions\UseCaseNotFoundException;
+use App\UseCases\User\Exceptions\InvalidCredentialsException;
+use App\UseCases\User\InputDTO\LoginUserInputDTO;
 use App\UseCases\User\InputDTO\RegisterUserInputDTO;
+use App\UseCases\User\LoginUserUseCase;
 use App\UseCases\User\RegisterRandomUserUseCase;
 use App\UseCases\User\RegisterUserUseCase;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -93,6 +97,46 @@ final class AuthController extends BaseApiController
                 'username' => $outputDto->username,
             ],
             Response::HTTP_CREATED
+        );
+    }
+
+    /**
+     * Handle request to authorize user via username and password
+     *
+     * @param LoginRequest $request
+     * @return JsonResponse
+     * @throws BindingResolutionException
+     * @throws UseCaseNotFoundException
+     */
+    public function login(LoginRequest $request): JsonResponse
+    {
+        $inputDto = new LoginUserInputDTO();
+        $inputDto->username = $request->username;
+        $inputDto->password = $request->password;
+
+        try {
+            /**
+             * @var LoginUserUseCase $useCase
+             */
+            $useCase = $this->useCaseFactory->createUseCase(UseCaseSystemNamesEnum::LOGIN_USER);
+            $useCase->setInputDTO($inputDto);
+            $useCase->execute();
+        } catch (InvalidCredentialsException) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => __('messages.invalid_username_or_password'),
+                ],
+                Response::HTTP_FORBIDDEN
+            );
+        }
+
+        return response()->json(
+            [
+                'success' => true,
+                'message' => __('messages.user_logged_successfully'),
+                'token' => $useCase->getOutputDto()->token,
+            ]
         );
     }
 }
