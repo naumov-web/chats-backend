@@ -11,10 +11,9 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @package App\Models\User
  *
  * @property-read int $id
- * @property string $email
+ * @property string $username
  * @property string $password
- * @property string $name
- * @property string|null $confirmation_code
+ * @property bool $is_anonymous
  *
  * @property Collection $roles
  */

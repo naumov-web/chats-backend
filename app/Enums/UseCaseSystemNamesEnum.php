@@ -18,11 +18,17 @@ final class UseCaseSystemNamesEnum
      * Use case for registration of user with username and password
      * @var string
      */
-    public const REGISTER_USER = 'register_user';
+    public const REGISTER_USER = 'registerUser';
 
     /**
      * Use case for login of user by username and password
      * @var string
      */
-    public const LOGIN_USER = 'login_user';
+    public const LOGIN_USER = 'loginUser';
+
+    /**
+     * Use case for creation of new chat
+     * @var string
+     */
+    public const CREATE_CHAT = 'createChat';
 }

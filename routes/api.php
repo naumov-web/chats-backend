@@ -11,4 +11,12 @@ Route::prefix('/v1')
             Route::post('register', 'AuthController@register');
             Route::post('login', 'AuthController@login');
         });
+
+        Route::middleware(['auth.jwt'])->group(function() {
+            Route::prefix('/account')->group(function () {
+                Route::prefix('/chats')->group(function () {
+                    Route::post('', 'ChatController@create');
+                });
+            });
+        });
     });
