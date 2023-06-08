@@ -14,8 +14,6 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property string $username
  * @property string $password
  * @property bool $is_anonymous
- *
- * @property Collection $roles
  */
 final class Model extends Authentication implements JWTSubject
 {
