@@ -2,12 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\User\Contracts\IUserCacheRepository;
-use App\Models\User\Contracts\IUserDatabaseRepository;
-use App\Models\User\Contracts\IUserService;
-use App\Models\User\Repositories\CacheRepository;
-use App\Models\User\Repositories\DatabaseRepository;
-use App\Models\User\Services\Service;
+use App\Models\Chat;
+use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -17,17 +13,31 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        // User
         $this->app->bind(
-            IUserService::class,
-            Service::class
+            User\Contracts\IUserService::class,
+            User\Services\Service::class
         );
         $this->app->bind(
-            IUserCacheRepository::class,
-            CacheRepository::class
+            User\Contracts\IUserCacheRepository::class,
+            User\Repositories\CacheRepository::class
         );
         $this->app->bind(
-            IUserDatabaseRepository::class,
-            DatabaseRepository::class
+            User\Contracts\IUserDatabaseRepository::class,
+            User\Repositories\DatabaseRepository::class
+        );
+        // Chat
+        $this->app->bind(
+            Chat\Contracts\IChatService::class,
+            Chat\Services\Service::class
+        );
+        $this->app->bind(
+            Chat\Contracts\IChatCacheRepository::class,
+            Chat\Repositories\CacheRepository::class
+        );
+        $this->app->bind(
+            Chat\Contracts\IChatDatabaseRepository::class,
+            Chat\Repositories\DatabaseRepository::class
         );
     }
 

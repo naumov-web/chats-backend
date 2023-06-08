@@ -11,12 +11,9 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @package App\Models\User
  *
  * @property-read int $id
- * @property string $email
+ * @property string $username
  * @property string $password
- * @property string $name
- * @property string|null $confirmation_code
- *
- * @property Collection $roles
+ * @property bool $is_anonymous
  */
 final class Model extends Authentication implements JWTSubject
 {

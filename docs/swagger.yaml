@@ -109,6 +109,69 @@ paths:
           schema:
             $ref: "#/definitions/ValidationErrorResponseModel"
 
+  /v1/account/chats:
+    post:
+      tags:
+        - chats
+      summary: Create chat
+      description: Create new chat
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: X-Locale
+          type: string
+          enum:
+            - ru
+            - en
+        - name: "CreateChatRequestBody"
+          in: body
+          description: "Request body for creation of chat"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateChatRequestModel"
+      responses:
+        201:
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/CreateChatResponseModel"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/DefaultErrorResponseModel"
+        422:
+          description: "Validation error"
+          schema:
+            $ref: "#/definitions/ValidationErrorResponseModel"
+
+  /v1/handbooks:
+    get:
+      tags:
+        - handbooks
+      summary: Get all handbooks
+      description: Get all available handbooks
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: X-Locale
+          type: string
+          enum:
+            - ru
+            - en
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/HandbooksResponseModel"
+
 definitions:
 
   # Register random account
@@ -170,7 +233,50 @@ definitions:
       token:
         type: string
 
+  # Create chat
+  CreateChatRequestModel:
+    type: object
+    required:
+      - name
+      - typeId
+    properties:
+      name:
+        type: string
+      typeId:
+        type: integer
+
+  CreateChatResponseModel:
+    type: object
+    properties:
+      success:
+        type: boolean
+      message:
+        type: string
+      id:
+        type: integer
+
+  # Handbooks
+  HandbooksResponseModel:
+    type: object
+    properties:
+      success:
+        type: boolean
+      message:
+        type: string
+      chat_types:
+        type: array
+        items:
+          $ref: "#/definitions/DefaultHandbookItemResponseModel"
+
   # Common
+  DefaultHandbookItemResponseModel:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+
   DefaultErrorResponseModel:
     type: object
     properties:
