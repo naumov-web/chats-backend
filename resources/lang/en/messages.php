@@ -6,5 +6,6 @@ return [
     'invalid_username_or_password' => 'Invalid username or password!',
     'user_logged_successfully' => 'User was logged successfully.',
     'chat_created_successfully' => 'Chat created successfully.',
-    'chat_with_name_already_exists' => 'Chat with this name already exists!'
+    'chat_with_name_already_exists' => 'Chat with this name already exists!',
+    'chats_list_loaded_successfully' => 'Chats list loaded successfully.',
 ];

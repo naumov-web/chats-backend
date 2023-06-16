@@ -109,7 +109,7 @@ paths:
           schema:
             $ref: "#/definitions/ValidationErrorResponseModel"
 
-  /v1/account/chats/my:
+  /v1/account/my/chats:
     get:
       tags:
         - chats
@@ -334,8 +334,6 @@ definitions:
       name:
         type: string
       typeId:
-        type: integer
-      messagesCount:
         type: integer
       createdAt:
         type: string

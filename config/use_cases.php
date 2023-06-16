@@ -2,6 +2,7 @@
 
 use App\Enums\UseCaseSystemNamesEnum;
 use App\UseCases\Chat\CreateChatUseCase;
+use App\UseCases\Chat\GetUserChatsUseCase;
 use App\UseCases\User\LoginUserUseCase;
 use App\UseCases\User\RegisterRandomUserUseCase;
 use App\UseCases\User\RegisterUserUseCase;
@@ -11,6 +12,7 @@ return [
         UseCaseSystemNamesEnum::REGISTER_RANDOM_USER => RegisterRandomUserUseCase::class,
         UseCaseSystemNamesEnum::REGISTER_USER => RegisterUserUseCase::class,
         UseCaseSystemNamesEnum::LOGIN_USER => LoginUserUseCase::class,
-        UseCaseSystemNamesEnum::CREATE_CHAT => CreateChatUseCase::class
+        UseCaseSystemNamesEnum::CREATE_CHAT => CreateChatUseCase::class,
+        UseCaseSystemNamesEnum::GET_USER_CHATS => GetUserChatsUseCase::class
     ]
 ];

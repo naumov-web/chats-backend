@@ -33,4 +33,10 @@ final class ChatDTO extends ModelDTO
      * @var int
      */
     public int $typeId;
+
+    /**
+     * Date and time of creation
+     * @var string
+     */
+    public string $createdAt;
 }

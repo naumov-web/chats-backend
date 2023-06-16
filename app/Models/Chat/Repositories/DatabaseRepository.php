@@ -2,6 +2,8 @@
 
 namespace App\Models\Chat\Repositories;
 
+use App\Models\Base\DTO\IndexDTO;
+use App\Models\Base\DTO\ListDTO;
 use App\Models\Base\Repositories\BaseDatabaseRepository;
 use App\Models\Chat\Composers\ChatDTOComposer;
 use App\Models\Chat\Contracts\IChatDatabaseRepository;
@@ -77,5 +79,20 @@ final class DatabaseRepository extends BaseDatabaseRepository implements IChatDa
         }
 
         return $this->composer->getFromModel($model);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUserChats(int $userOwnerId, IndexDTO $indexDto): ListDTO
+    {
+        $listDto = new ListDTO();
+        $query = $this->getFollowerQuery();
+        $query->where('user_owner_id', $userOwnerId);
+        $listDto->count = $query->count();
+        $query = $this->applyPaginationAndSorting($query, $indexDto);
+        $listDto->items = $this->composer->getFromCollection($query->get());
+
+        return $listDto;
     }
 }

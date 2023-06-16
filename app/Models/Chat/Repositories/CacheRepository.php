@@ -2,6 +2,8 @@
 
 namespace App\Models\Chat\Repositories;
 
+use App\Models\Base\DTO\IndexDTO;
+use App\Models\Base\DTO\ListDTO;
 use App\Models\Chat\Contracts\IChatCacheRepository;
 use App\Models\Chat\Contracts\IChatDatabaseRepository;
 use App\Models\Chat\DTO\ChatDTO;
@@ -63,5 +65,26 @@ final class CacheRepository implements IChatCacheRepository
     private function getUserTag(int $userOwnerId): string
     {
         return 'users/' . $userOwnerId . '/chats';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUserChats(int $userOwnerId, IndexDTO $indexDto): ListDTO
+    {
+        $keyName = 'users/' . $userOwnerId . '/chats/' . $indexDto->toString();
+        $items = Cache::get($keyName);
+
+        if ($items) {
+            return $items;
+        } else {
+            $items = $this->databaseRepository->getUserChats($userOwnerId, $indexDto);
+
+            Cache::tags([
+                $this->getUserTag($userOwnerId)
+            ])->put($keyName, $items);
+
+            return $items;
+        }
     }
 }

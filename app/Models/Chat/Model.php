@@ -12,6 +12,7 @@ use App\Models\BaseDBModel;
  * @property int $user_owner_id
  * @property string $name
  * @property int $type_id
+ * @property string $created_at
  */
 final class Model extends BaseDBModel
 {

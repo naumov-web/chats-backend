@@ -2,6 +2,8 @@
 
 namespace App\Models\Chat\Services;
 
+use App\Models\Base\DTO\IndexDTO;
+use App\Models\Base\DTO\ListDTO;
 use App\Models\Chat\Contracts\IChatCacheRepository;
 use App\Models\Chat\Contracts\IChatDatabaseRepository;
 use App\Models\Chat\Contracts\IChatService;
@@ -35,5 +37,13 @@ final class Service implements IChatService
         }
 
         return $this->databaseRepository->createChat($dto);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUserChats(int $userId, IndexDTO $indexDto): ListDTO
+    {
+        return $this->cacheRepository->getUserChats($userId, $indexDto);
     }
 }

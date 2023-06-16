@@ -1,15 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\V1\My;
 
 use App\Enums\UseCaseSystemNamesEnum;
 use App\Http\Controllers\Api\BaseApiController;
 use App\Http\Requests\Api\V1\Chat\CreateRequest;
+use App\Http\Requests\Api\V1\Chat\IndexMyRequest;
+use App\Http\Resources\Api\ListResource;
+use App\Http\Resources\Api\V1\Chat\ChatResource;
 use App\Models\Chat\Exceptions\ChatWithNameAlreadyExistsException;
 use App\Models\User\Model;
 use App\UseCases\Base\Exceptions\UseCaseNotFoundException;
 use App\UseCases\Chat\CreateChatUseCase;
+use App\UseCases\Chat\GetUserChatsUseCase;
 use App\UseCases\Chat\InputDTO\CreateChatInputDTO;
+use App\UseCases\Chat\InputDTO\GetUserChatsInputDTO;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -68,5 +73,42 @@ final class ChatController extends BaseApiController
             ],
             Response::HTTP_CREATED
         );
+    }
+
+    /**
+     * Handle request to get user's chats
+     *
+     * @param IndexMyRequest $request
+     * @return ListResource
+     * @throws BindingResolutionException
+     * @throws UseCaseNotFoundException
+     */
+    public function indexMy(IndexMyRequest $request): ListResource
+    {
+        /**
+         * @var Model $user
+         */
+        $user = auth()->user();
+        $inputDto = new GetUserChatsInputDTO();
+        $inputDto->user = $user;
+        $inputDto->limit = $request->limit;
+        $inputDto->offset = $request->offset;
+        $inputDto->sortBy = $request->sortBy;
+        $inputDto->sortDirection = $request->sortDirection;
+
+        /**
+         * @var GetUserChatsUseCase $useCase
+         */
+        $useCase = $this->useCaseFactory->createUseCase(UseCaseSystemNamesEnum::GET_USER_CHATS);
+        $useCase->setInputDTO($inputDto);
+        $useCase->execute();
+
+        $outputDto = $useCase->getOutputDto();
+
+        return (new ListResource(null))
+            ->setCount($outputDto->count)
+            ->setItems($outputDto->items)
+            ->setResourceClassName(ChatResource::class)
+            ->setMessage(__('messages.chats_list_loaded_successfully'));
     }
 }
