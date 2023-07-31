@@ -26,9 +26,7 @@ final class CreateChatUseCaseTest extends BaseUseCaseTest
      */
     public function testSuccessCase(): void
     {
-        /**
-         * @var User\Model $user
-         */
+        /** @var User\Model $user */
         $user = User\Model::query()->create([
             'username' => 'user1',
             'is_anonymous' => true
