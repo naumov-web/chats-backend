@@ -69,9 +69,7 @@ final class DatabaseRepository extends BaseDatabaseRepository implements IChatDa
         $query->where('user_owner_id', $userOwnerId);
         $query->where('name', $name);
 
-        /**
-         * @var Model $model
-         */
+        /** @var Model $model */
         $model = $query->first();
 
         if (!$model) {
