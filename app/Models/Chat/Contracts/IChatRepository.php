@@ -2,6 +2,8 @@
 
 namespace App\Models\Chat\Contracts;
 
+use App\Models\Base\DTO\IndexDTO;
+use App\Models\Base\DTO\ListDTO;
 use App\Models\Chat\DTO\ChatDTO;
 
 /**
@@ -18,4 +20,13 @@ interface IChatRepository
      * @return ChatDTO|null
      */
     public function getChatByName(int $userOwnerId, string $name): ?ChatDTO;
+
+    /**
+     * Get chats which belong to specific user
+     *
+     * @param int $userOwnerId
+     * @param IndexDTO $indexDto
+     * @return ListDTO
+     */
+    public function getUserChats(int $userOwnerId, IndexDTO $indexDto): ListDTO;
 }

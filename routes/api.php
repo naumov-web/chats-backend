@@ -14,8 +14,9 @@ Route::prefix('/v1')
 
         Route::middleware(['auth.jwt'])->group(function() {
             Route::prefix('/account')->group(function () {
-                Route::prefix('/chats')->group(function () {
-                    Route::post('', 'ChatController@create');
+                Route::prefix('/my/chats')->group(function () {
+                    Route::post('', 'My\ChatController@create');
+                    Route::get('', 'My\ChatController@indexMy');
                 });
             });
         });

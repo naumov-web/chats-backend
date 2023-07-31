@@ -33,6 +33,5 @@ abstract class BaseUseCaseTest extends TestCase
         parent::setUp();
         Queue::fake();
         $this->useCaseFactory = app()->make(UseCaseFactory::class);
-
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models\Base\Repositories;
 
 use App\Enums\EnvTypesEnum;
+use App\Models\Base\DTO\IndexDTO;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -81,6 +82,33 @@ abstract class BaseDatabaseRepository
          * @var Builder $query
          */
         $query = $className::on($this->isTesting() ? self::TESTING_CONNECTION_NAME : self::FOLLOWER_CONNECTION_NAME);
+
+        return $query;
+    }
+
+    /**
+     * Apply pagination and sorting at query
+     *
+     * @param Builder $query
+     * @param IndexDTO $indexDto
+     * @return Builder
+     */
+    protected function applyPaginationAndSorting(Builder $query, IndexDTO $indexDto): Builder
+    {
+        if (!is_null($indexDto->limit)) {
+            $query->limit($indexDto->limit);
+        }
+
+        if (!is_null($indexDto->offset)) {
+            $query->limit($indexDto->offset);
+        }
+
+        if (!is_null($indexDto->sortBy) && !is_null($indexDto->sortDirection)) {
+            $query->orderBy(
+                $indexDto->sortBy,
+                $indexDto->sortDirection
+            );
+        }
 
         return $query;
     }
