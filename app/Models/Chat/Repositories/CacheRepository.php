@@ -64,17 +64,6 @@ final class CacheRepository extends IBaseCacheRepository implements IChatCacheRe
     }
 
     /**
-     * Get user tag value
-     *
-     * @param int $userOwnerId
-     * @return string
-     */
-    private function getUserTag(int $userOwnerId): string
-    {
-        return 'users/' . $userOwnerId . '/my/chats';
-    }
-
-    /**
      * @inheritDoc
      */
     public function getUserChats(int $userOwnerId, IndexDTO $indexDto): ListDTO
@@ -96,5 +85,50 @@ final class CacheRepository extends IBaseCacheRepository implements IChatCacheRe
 
             return $items;
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getChat(int $chatId): ?ChatDTO
+    {
+        $keyName = $this->getSpecificChatKey($chatId);
+        $item = Cache::get($keyName);
+
+        if ($item) {
+            return $item;
+        } else {
+            $item = $this->databaseRepository->getChat($chatId);
+
+            if ($item) {
+                Cache::put($keyName, $item);
+
+                return $item;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Get user tag value
+     *
+     * @param int $userOwnerId
+     * @return string
+     */
+    private function getUserTag(int $userOwnerId): string
+    {
+        return 'users/' . $userOwnerId . '/my/chats';
+    }
+
+    /**
+     * Get specific chat key
+     *
+     * @param int $chatId
+     * @return string
+     */
+    private function getSpecificChatKey(int $chatId): string
+    {
+        return $this->getDirectoryKey() . '/chats/' . $chatId;
     }
 }

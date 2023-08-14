@@ -68,20 +68,6 @@ services:
     networks:
       - default-network
 
-  database_testing:
-    image: mysql:8.0.30
-    container_name: database_testing
-    restart: unless-stopped
-    ports:
-      - ${DATABASE_TESTING_EXTERNAL_PORT}:${DATABASE_FOLLOWER_PORT}
-    environment:
-      - MYSQL_ROOT_PASSWORD=${DATABASE_TESTING_PASSWORD}
-      - MYSQL_USER=${DATABASE_TESTING_USER}
-      - MYSQL_DATABASE=${DATABASE_TESTING_NAME}
-      - MYSQL_PASSWORD=${DATABASE_TESTING_PASSWORD}
-    networks:
-      - default-network
-
   redis:
     image: redis:4.0
     ports:

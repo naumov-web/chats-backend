@@ -3,9 +3,9 @@
 namespace App\Models\Chat\Exceptions;
 
 /**
- * Class ChatDoesntExistException
+ * Class ForbiddenException
  * @package App\Models\Chat\Exceptions
  */
-final class ChatDoesntExistException extends \Exception
+final class ForbiddenException extends \Exception
 {
 }

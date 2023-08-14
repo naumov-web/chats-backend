@@ -28,4 +28,13 @@ interface IChatService
      * @return ListDTO
      */
     public function getUserChats(int $userId, IndexDTO $indexDto): ListDTO;
+
+    /**
+     * Get chat by user owner's id and id of chat
+     *
+     * @param int $userOwnerId
+     * @param int $chatId
+     * @return ChatDTO
+     */
+    public function getUserChat(int $userOwnerId, int $chatId): ChatDTO;
 }

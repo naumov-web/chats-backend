@@ -37,4 +37,10 @@ final class UseCaseSystemNamesEnum
      * @var string
      */
     public const GET_USER_CHATS = 'getUserChats';
+
+    /**
+     * Use case for creation of relation between chat and user
+     * @var string
+     */
+    public const CREATE_CHAT_USER = 'createChatUser';
 }

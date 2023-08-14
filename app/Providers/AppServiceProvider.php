@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\ChatUser;
 use App\Models\Chat;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -40,6 +41,19 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             Chat\Contracts\IChatDatabaseRepository::class,
             Chat\Repositories\DatabaseRepository::class
+        );
+        // Chat user
+        $this->app->bind(
+            ChatUser\Contracts\IChatUserService::class,
+            ChatUser\Services\Service::class
+        );
+        $this->app->bind(
+            ChatUser\Contracts\IChatUserCacheRepository::class,
+            ChatUser\Repositories\CacheRepository::class
+        );
+        $this->app->bind(
+            ChatUser\Contracts\IChatUserDatabaseRepository::class,
+            ChatUser\Repositories\DatabaseRepository::class
         );
     }
 

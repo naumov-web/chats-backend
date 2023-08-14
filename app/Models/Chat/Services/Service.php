@@ -8,7 +8,9 @@ use App\Models\Chat\Contracts\IChatCacheRepository;
 use App\Models\Chat\Contracts\IChatDatabaseRepository;
 use App\Models\Chat\Contracts\IChatService;
 use App\Models\Chat\DTO\ChatDTO;
+use App\Models\Chat\Exceptions\ChatDoesntExistException;
 use App\Models\Chat\Exceptions\ChatWithNameAlreadyExistsException;
+use App\Models\Chat\Exceptions\ForbiddenException;
 
 /**
  * Class Service
@@ -45,5 +47,25 @@ final class Service implements IChatService
     public function getUserChats(int $userId, IndexDTO $indexDto): ListDTO
     {
         return $this->cacheRepository->getUserChats($userId, $indexDto);
+    }
+
+    /**
+     * @inheritDoc
+     * @throws ChatDoesntExistException
+     * @throws ForbiddenException
+     */
+    public function getUserChat(int $userOwnerId, int $chatId): ChatDTO
+    {
+        $chatDto = $this->cacheRepository->getChat($chatId);
+
+        if (!$chatDto) {
+            throw new ChatDoesntExistException();
+        }
+
+        if ($chatDto->userOwnerId !== $userOwnerId) {
+            throw new ForbiddenException();
+        }
+
+        return $chatDto;
     }
 }

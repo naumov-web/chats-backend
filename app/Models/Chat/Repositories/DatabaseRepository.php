@@ -93,4 +93,21 @@ final class DatabaseRepository extends BaseDatabaseRepository implements IChatDa
 
         return $listDto;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getChat(int $chatId): ?ChatDTO
+    {
+        $query = $this->getFollowerQuery();
+        $query->where('id', $chatId);
+        /** @var Model $model */
+        $model = $query->first();
+
+        if (!$model) {
+            return null;
+        }
+
+        return $this->composer->getFromModel($model);
+    }
 }
