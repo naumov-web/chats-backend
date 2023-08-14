@@ -8,4 +8,9 @@ return [
     'chat_created_successfully' => 'Chat created successfully.',
     'chat_with_name_already_exists' => 'Chat with this name already exists!',
     'chats_list_loaded_successfully' => 'Chats list loaded successfully.',
+    'chat_user_created_successfully' => 'Chat user created successfully.',
+    'char_user_already_exists' => 'Chat user already exists!',
+
+    'forbidden' => 'Forbidden!',
+    'not_found' => 'Not found!',
 ];

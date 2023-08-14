@@ -207,6 +207,61 @@ paths:
           schema:
             $ref: "#/definitions/ValidationErrorResponseModel"
 
+  /v1/account/my/chats/{chatId}/users:
+    post:
+      tags:
+        - chats
+      summary: Add user to chat
+      description: Add specific user to chat
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: X-Locale
+          type: string
+          enum:
+            - ru
+            - en
+        - in: path
+          name: chatId
+          required: true
+          description: "Id of chat"
+          type: integer
+        - name: "InviteUserToChatRequestBody"
+          in: body
+          description: "Request body for inviting of user to specific chat"
+          required: true
+          schema:
+            $ref: "#/definitions/InviteUserToChatRequestModel"
+      responses:
+        201:
+          description: "Successfull operation"
+          schema:
+            $ref: "#/definitions/DefaultSuccessResponseModel"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/DefaultErrorResponseModel"
+        403:
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/DefaultErrorResponseModel"
+        404:
+          description: "Not found"
+          schema:
+            $ref: "#/definitions/DefaultErrorResponseModel"
+        422:
+          description: "Validation error"
+          schema:
+            $ref: "#/definitions/ValidationErrorResponseModel"
+
   /v1/handbooks:
     get:
       tags:
@@ -338,6 +393,15 @@ definitions:
       createdAt:
         type: string
 
+  # Invite user
+  InviteUserToChatRequestModel:
+    type: object
+    required:
+      - userId
+    properties:
+      userId:
+        type: integer
+
   # Handbooks
   HandbooksResponseModel:
     type: object
@@ -352,6 +416,14 @@ definitions:
           $ref: "#/definitions/DefaultHandbookItemResponseModel"
 
   # Common
+  DefaultSuccessResponseModel:
+    type: object
+    properties:
+      success:
+        type: boolean
+      message:
+        type: string
+
   DefaultHandbookItemResponseModel:
     type: object
     properties:

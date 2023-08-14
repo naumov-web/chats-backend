@@ -35,9 +35,7 @@ final class ChatController extends BaseApiController
      */
     public function create(CreateRequest $request): JsonResponse
     {
-        /**
-         * @var Model $user
-         */
+        /** @var Model $user */
         $user = auth()->user();
         $inputDto = new CreateChatInputDTO();
         $inputDto->name = $request->name;

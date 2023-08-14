@@ -29,4 +29,12 @@ interface IChatRepository
      * @return ListDTO
      */
     public function getUserChats(int $userOwnerId, IndexDTO $indexDto): ListDTO;
+
+    /**
+     * Get chat by id
+     *
+     * @param int $chatId
+     * @return ChatDTO|null
+     */
+    public function getChat(int $chatId): ?ChatDTO;
 }

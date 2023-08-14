@@ -28,7 +28,7 @@ abstract class BaseDatabaseRepository
      * Testing database connection name
      * @var string
      */
-    protected const TESTING_CONNECTION_NAME = 'database_testing';
+    protected const TESTING_CONNECTION_NAME = 'sqlite';
 
     /**
      * Get model class name
