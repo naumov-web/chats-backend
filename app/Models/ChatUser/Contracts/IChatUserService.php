@@ -17,4 +17,13 @@ interface IChatUserService
      * @return void
      */
     public function createChatUser(CreateChatUserDTO $dto): void;
+
+    /**
+     * Check is chat user exists
+     *
+     * @param int $chatId
+     * @param int $userId
+     * @return bool
+     */
+    public function isChatUserExists(int $chatId, int $userId): bool;
 }

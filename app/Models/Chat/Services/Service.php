@@ -68,4 +68,20 @@ final class Service implements IChatService
 
         return $chatDto;
     }
+
+
+    /**
+     * @inheritDoc
+     * @throws ChatDoesntExistException
+     */
+    public function getChat(int $chatId): ChatDTO
+    {
+        $chatDto = $this->cacheRepository->getChat($chatId);
+
+        if (!$chatDto) {
+            throw new ChatDoesntExistException();
+        }
+
+        return $chatDto;
+    }
 }

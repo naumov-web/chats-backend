@@ -43,4 +43,10 @@ final class UseCaseSystemNamesEnum
      * @var string
      */
     public const CREATE_CHAT_USER = 'createChatUser';
+
+    /**
+     * Use case for creation of chat message
+     * @var string
+     */
+    public const CREATE_MESSAGE = 'createMessage';
 }
