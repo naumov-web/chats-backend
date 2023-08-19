@@ -20,6 +20,10 @@ Route::prefix('/v1')
 
                     Route::post('/{chatId}/users', 'My\ChatUserController@create');
                 });
+
+                Route::prefix('/chats')->group(function () {
+                    Route::post('/{chatId}/messages', 'MessageController@create');
+                });
             });
         });
     });

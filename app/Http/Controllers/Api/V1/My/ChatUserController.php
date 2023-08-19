@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1\My;
 
 use App\Enums\UseCaseSystemNamesEnum;
 use App\Http\Controllers\Api\BaseApiController;
-use App\Http\Requests\Api\V1\ChatUser\CreateChatUserRequest;
+use App\Http\Requests\Api\V1\ChatUser\CreateRequest;
 use App\Models\Chat\Exceptions\ChatDoesntExistException;
 use App\Models\Chat\Exceptions\ForbiddenException;
 use App\Models\ChatUser\Exceptions\ChatUserAlreadyExistsException;
@@ -24,13 +24,13 @@ final class ChatUserController extends BaseApiController
     /**
      * Handle request to create chat user
      *
-     * @param CreateChatUserRequest $request
+     * @param CreateRequest $request
      * @param int $chatId
      * @return JsonResponse
      * @throws UseCaseNotFoundException
      * @throws BindingResolutionException
      */
-    public function create(CreateChatUserRequest $request, int $chatId): JsonResponse
+    public function create(CreateRequest $request, int $chatId): JsonResponse
     {
         /** @var Model $user */
         $user = auth()->user();

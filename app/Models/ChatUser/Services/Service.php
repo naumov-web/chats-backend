@@ -30,7 +30,7 @@ final class Service implements IChatUserService
      */
     public function createChatUser(CreateChatUserDTO $dto): void
     {
-        if ($this->isChatUserExists($dto)) {
+        if ($this->isChatUserExists($dto->chatId, $dto->userId)) {
             throw new ChatUserAlreadyExistsException();
         }
 
@@ -42,14 +42,13 @@ final class Service implements IChatUserService
     }
 
     /**
-     * @param CreateChatUserDTO $dto
-     * @return bool
+     * @inheritDoc
      */
-    private function isChatUserExists(CreateChatUserDTO $dto): bool
+    public function isChatUserExists(int $chatId, int $userId): bool
     {
         return $this->cacheRepository->isChatUserExists(
-            $dto->chatId,
-            $dto->userId
+            $chatId,
+            $userId
         );
     }
 }

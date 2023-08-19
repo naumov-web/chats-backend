@@ -10,6 +10,7 @@ return [
     'chats_list_loaded_successfully' => 'Chats list loaded successfully.',
     'chat_user_created_successfully' => 'Chat user created successfully.',
     'char_user_already_exists' => 'Chat user already exists!',
+    'message_created_successfully' => 'Message created successfully.',
 
     'forbidden' => 'Forbidden!',
     'not_found' => 'Not found!',
