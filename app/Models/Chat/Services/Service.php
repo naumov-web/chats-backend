@@ -34,11 +34,14 @@ final class Service implements IChatService
      */
     public function createChat(ChatDTO $dto): ChatDTO
     {
-        if ($this->cacheRepository->getChatByName($dto->userOwnerId, $dto->name)) {
+        if ($this->databaseRepository->getChatByName($dto->userOwnerId, $dto->name)) {
             throw new ChatWithNameAlreadyExistsException();
         }
 
-        return $this->databaseRepository->createChat($dto);
+        $newChatDto = $this->databaseRepository->createChat($dto);
+        $this->cacheRepository->resetUserChatsTag($dto->userOwnerId);
+
+        return $newChatDto;
     }
 
     /**
@@ -83,5 +86,40 @@ final class Service implements IChatService
         }
 
         return $chatDto;
+    }
+
+    /**
+     * @inheritDoc
+     * @param ChatDTO $newChatDto
+     * @return ChatDTO
+     * @throws ChatDoesntExistException
+     * @throws ChatWithNameAlreadyExistsException
+     * @throws ForbiddenException
+     */
+    public function updateChat(ChatDTO $newChatDto): ChatDTO
+    {
+        $chatDto = $this->cacheRepository->getChat($newChatDto->id);
+
+        if (!$chatDto) {
+            throw new ChatDoesntExistException();
+        }
+
+        if ($chatDto->userOwnerId !== $newChatDto->userOwnerId) {
+            throw new ForbiddenException();
+        }
+
+        if ($this->databaseRepository->getChatByNameExcludeId(
+            $newChatDto->userOwnerId,
+            $newChatDto->name,
+            $newChatDto->id
+        )) {
+            throw new ChatWithNameAlreadyExistsException();
+        }
+
+        $updatedChatDto = $this->databaseRepository->updateChat($newChatDto);
+        $this->cacheRepository->resetChatCache($newChatDto->id);
+        $this->cacheRepository->resetUserChatsTag($newChatDto->userOwnerId);
+
+        return $updatedChatDto;
     }
 }

@@ -39,8 +39,18 @@ interface IChatService
     public function getUserChat(int $userOwnerId, int $chatId): ChatDTO;
 
     /**
+     * Get specific chat by id
+     *
      * @param int $chatId
      * @return ChatDTO
      */
     public function getChat(int $chatId): ChatDTO;
+
+    /**
+     * Update specific chat
+     *
+     * @param ChatDTO $newChatDto
+     * @return ChatDTO
+     */
+    public function updateChat(ChatDTO $newChatDto): ChatDTO;
 }

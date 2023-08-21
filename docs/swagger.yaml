@@ -207,10 +207,65 @@ paths:
           schema:
             $ref: "#/definitions/ValidationErrorResponseModel"
 
+  /v1/account/my/chats/{chatId}:
+    put:
+      tags:
+        - chats
+      summary: Update chat
+      description: Update specific chat info
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: X-Locale
+          type: string
+          enum:
+            - ru
+            - en
+        - in: path
+          name: chatId
+          required: true
+          description: "Id of chat"
+          type: integer
+        - name: "UpdateChatRequestBody"
+          in: body
+          description: "Request body for updating of chat"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateChatRequestModel"
+      responses:
+        200:
+          description: "Successfull operation"
+          schema:
+            $ref: "#/definitions/DefaultSuccessResponseModel"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/DefaultErrorResponseModel"
+        403:
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/DefaultErrorResponseModel"
+        404:
+          description: "Not found"
+          schema:
+            $ref: "#/definitions/DefaultErrorResponseModel"
+        422:
+          description: "Validation error"
+          schema:
+            $ref: "#/definitions/ValidationErrorResponseModel"
+
   /v1/account/my/chats/{chatId}/users:
     post:
       tags:
-        - chats
+        - chat users
       summary: Add user to chat
       description: Add specific user to chat
       produces:
@@ -265,7 +320,7 @@ paths:
   /v1/account/chats/{chatId}/messages:
     post:
       tags:
-        - chats
+        - messages
       summary: Add message to chat
       description: Add text message to specific chat
       produces:
@@ -419,6 +474,18 @@ definitions:
       message:
         type: string
       id:
+        type: integer
+
+  # Update chat
+  UpdateChatRequestModel:
+    type: object
+    required:
+      - name
+      - typeId
+    properties:
+      name:
+        type: string
+      typeId:
         type: integer
 
   # Get chats

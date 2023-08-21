@@ -33,6 +33,12 @@ final class UseCaseSystemNamesEnum
     public const CREATE_CHAT = 'createChat';
 
     /**
+     * Use case for updating of specific chat
+     * @var string
+     */
+    public const UPDATE_CHAT = 'updateChat';
+
+    /**
      * Use case for getting of user's chats
      * @var string
      */
