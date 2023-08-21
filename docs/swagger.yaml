@@ -261,6 +261,47 @@ paths:
           description: "Validation error"
           schema:
             $ref: "#/definitions/ValidationErrorResponseModel"
+    delete:
+      tags:
+        - chats
+      summary: Delete chat
+      description: Delete specific chat
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: X-Locale
+          type: string
+          enum:
+            - ru
+            - en
+        - in: path
+          name: chatId
+          required: true
+          description: "Id of chat"
+          type: integer
+      responses:
+        200:
+          description: "Successfull operation"
+          schema:
+            $ref: "#/definitions/DefaultSuccessResponseModel"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/DefaultErrorResponseModel"
+        403:
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/DefaultErrorResponseModel"
+        404:
+          description: "Not found"
+          schema:
+            $ref: "#/definitions/DefaultErrorResponseModel"
 
   /v1/account/my/chats/{chatId}/users:
     post:
