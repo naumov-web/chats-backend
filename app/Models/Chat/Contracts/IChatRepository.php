@@ -13,15 +13,6 @@ use App\Models\Chat\DTO\ChatDTO;
 interface IChatRepository
 {
     /**
-     * Get chat instance by name for specific user
-     *
-     * @param int $userOwnerId
-     * @param string $name
-     * @return ChatDTO|null
-     */
-    public function getChatByName(int $userOwnerId, string $name): ?ChatDTO;
-
-    /**
      * Get chats which belong to specific user
      *
      * @param int $userOwnerId

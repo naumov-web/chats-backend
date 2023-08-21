@@ -110,4 +110,40 @@ final class DatabaseRepository extends BaseDatabaseRepository implements IChatDa
 
         return $this->composer->getFromModel($model);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getChatByNameExcludeId(int $userOwnerId, string $name, int $excludeId): ?ChatDTO
+    {
+        $query = $this->getFollowerQuery();
+        $query->where('user_owner_id', $userOwnerId);
+        $query->where('name', $name);
+        $query->where('id', '<>', $excludeId);
+
+        /** @var Model $model */
+        $model = $query->first();
+
+        if (!$model) {
+            return null;
+        }
+
+        return $this->composer->getFromModel($model);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function updateChat(ChatDTO $dto): ChatDTO
+    {
+        $query = $this->getLeaderQuery();
+        $query->where('id', $dto->id);
+
+        $query->update([
+            'name' => $dto->name,
+            'type_id' => $dto->typeId,
+        ]);
+
+        return $dto;
+    }
 }

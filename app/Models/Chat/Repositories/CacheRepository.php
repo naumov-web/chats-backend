@@ -41,31 +41,6 @@ final class CacheRepository extends IBaseCacheRepository implements IChatCacheRe
     /**
      * @inheritDoc
      */
-    public function getChatByName(int $userOwnerId, string $name): ?ChatDTO
-    {
-        $keyName = $this->getDirectoryKey() . '/user/' . $userOwnerId . '/by-name/' . $name;
-        $item = Cache::get($keyName);
-
-        if ($item) {
-            return $item;
-        } else {
-            $item = $this->databaseRepository->getChatByName($userOwnerId, $name);
-
-            if ($item) {
-                Cache::tags([
-                    $this->getUserTag($userOwnerId)
-                ])->put($keyName, $item);
-
-                return $item;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function getUserChats(int $userOwnerId, IndexDTO $indexDto): ListDTO
     {
         $keyName = $this->getDirectoryKey() . '/users/' . $userOwnerId . '/chats/' . $indexDto->toString();
@@ -108,6 +83,25 @@ final class CacheRepository extends IBaseCacheRepository implements IChatCacheRe
         }
 
         return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function resetUserChatsTag(int $userOwnerId): void
+    {
+        Cache::tags([
+            $this->getUserTag($userOwnerId)
+        ])->flush();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function resetChatCache(int $chatId): void
+    {
+        $keyName = $this->getSpecificChatKey($chatId);
+        Cache::forget($keyName);
     }
 
     /**
