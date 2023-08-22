@@ -18,4 +18,12 @@ interface IMessageDatabaseRepository extends IMessageRepository
      * @return void
      */
     public function create(CreateMessageDTO $dto): void;
+
+    /**
+     * Delete chat messages by chat id
+     *
+     * @param int $chatId
+     * @return void
+     */
+    public function deleteChatMessages(int $chatId): void;
 }

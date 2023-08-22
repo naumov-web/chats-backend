@@ -122,4 +122,14 @@ final class Service implements IChatService
 
         return $updatedChatDto;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function deleteChat(int $chatId, int $currentUserId): void
+    {
+        $this->databaseRepository->deleteChat($chatId);
+        $this->cacheRepository->resetChatCache($chatId);
+        $this->cacheRepository->resetUserChatsTag($currentUserId);
+    }
 }

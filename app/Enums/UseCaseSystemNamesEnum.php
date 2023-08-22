@@ -39,6 +39,12 @@ final class UseCaseSystemNamesEnum
     public const UPDATE_CHAT = 'updateChat';
 
     /**
+     * Use case for deleting of specific chat
+     * @var string
+     */
+    public const DELETE_CHAT = 'deleteChat';
+
+    /**
      * Use case for getting of user's chats
      * @var string
      */

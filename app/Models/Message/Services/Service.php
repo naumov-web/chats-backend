@@ -25,4 +25,12 @@ final class Service implements IMessageService
     {
         $this->databaseRepository->create($dto);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function deleteChatMessages(int $chatId): void
+    {
+        $this->databaseRepository->deleteChatMessages($chatId);
+    }
 }

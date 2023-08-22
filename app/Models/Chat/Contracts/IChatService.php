@@ -53,4 +53,13 @@ interface IChatService
      * @return ChatDTO
      */
     public function updateChat(ChatDTO $newChatDto): ChatDTO;
+
+    /**
+     * Delete specific chat by id
+     *
+     * @param int $chatId
+     * @param int $currentUserId
+     * @return void
+     */
+    public function deleteChat(int $chatId, int $currentUserId): void;
 }

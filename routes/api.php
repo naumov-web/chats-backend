@@ -16,8 +16,9 @@ Route::prefix('/v1')
             Route::prefix('/account')->group(function () {
                 Route::prefix('/my/chats')->group(function () {
                     Route::post('', 'My\ChatController@create');
-                    Route::put('/{chatId}', 'My\ChatController@update');
                     Route::get('', 'My\ChatController@indexMy');
+                    Route::put('/{chatId}', 'My\ChatController@update');
+                    Route::delete('/{chatId}', 'My\ChatController@delete');
 
                     Route::post('/{chatId}/users', 'My\ChatUserController@create');
                 });

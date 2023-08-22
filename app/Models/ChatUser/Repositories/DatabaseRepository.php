@@ -41,6 +41,16 @@ final class DatabaseRepository extends BaseDatabaseRepository implements IChatUs
     /**
      * @inheritDoc
      */
+    public function deleteChatUsers(int $chatId): void
+    {
+        $query = $this->getLeaderQuery();
+        $query->where('chat_id', $chatId);
+        $query->delete();
+    }
+
+    /**
+     * @inheritDoc
+     */
     protected function getModelsClass(): string
     {
         return Model::class;
