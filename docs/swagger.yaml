@@ -413,6 +413,66 @@ paths:
           schema:
             $ref: "#/definitions/ValidationErrorResponseModel"
 
+  /v1/account/users:
+    get:
+      tags:
+        - users
+      summary: Get users
+      description: Get users list
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: X-Locale
+          type: string
+          enum:
+            - ru
+            - en
+        - in: query
+          name: limit
+          type: integer
+          description: Limit of items in response
+        - in: query
+          name: offset
+          type: integer
+          description: Offset of items in response
+        - in: query
+          name: sortBy
+          type: string
+          description: Sort by column
+          enum:
+            - id
+            - username
+        - in: query
+          name: sortDirection
+          type: string
+          description: Sort direction
+          enum:
+            - asc
+            - desc
+        - in: query
+          name: query
+          type: string
+          description: Search users by query
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/UsersListResponseModel"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/DefaultErrorResponseModel"
+        422:
+          description: "Validation error"
+          schema:
+            $ref: "#/definitions/ValidationErrorResponseModel"
+
   /v1/handbooks:
     get:
       tags:
@@ -554,6 +614,29 @@ definitions:
       typeId:
         type: integer
       createdAt:
+        type: string
+
+  # Get users
+  UsersListResponseModel:
+    type: object
+    properties:
+      success:
+        type: boolean
+      message:
+        type: string
+      count:
+        type: integer
+      items:
+        type: array
+        items:
+          $ref: "#/definitions/UserResponseModel"
+
+  UserResponseModel:
+    type: object
+    properties:
+      id:
+        type: integer
+      username:
         type: string
 
   # Invite user
