@@ -42,4 +42,14 @@ final class DatabaseRepository extends BaseDatabaseRepository implements IMessag
             'text' => $dto->text,
         ]);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function deleteChatMessages(int $chatId): void
+    {
+        $query = $this->getLeaderQuery();
+        $query->where('chat_id', $chatId);
+        $query->delete();
+    }
 }

@@ -43,4 +43,12 @@ interface IChatDatabaseRepository extends IChatRepository
      * @return ChatDTO
      */
     public function updateChat(ChatDTO $dto): ChatDTO;
+
+    /**
+     * Delete specific chat
+     *
+     * @param int $chatId
+     * @return void
+     */
+    public function deleteChat(int $chatId): void;
 }

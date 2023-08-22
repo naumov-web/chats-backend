@@ -26,4 +26,12 @@ interface IChatUserService
      * @return bool
      */
     public function isChatUserExists(int $chatId, int $userId): bool;
+
+    /**
+     * Delete chat users for specific chat
+     *
+     * @param int $chatId
+     * @return void
+     */
+    public function deleteChatUsers(int $chatId): void;
 }

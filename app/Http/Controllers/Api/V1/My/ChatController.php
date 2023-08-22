@@ -17,6 +17,7 @@ use App\UseCases\Base\Exceptions\UseCaseNotFoundException;
 use App\UseCases\Chat\CreateChatUseCase;
 use App\UseCases\Chat\GetUserChatsUseCase;
 use App\UseCases\Chat\InputDTO\CreateChatInputDTO;
+use App\UseCases\Chat\InputDTO\DeleteChatInputDTO;
 use App\UseCases\Chat\InputDTO\GetUserChatsInputDTO;
 use App\UseCases\Chat\InputDTO\UpdateChatInputDTO;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -163,6 +164,51 @@ final class ChatController extends BaseApiController
         return \response()->json([
             'success' => true,
             'message' => __('messages.chat_updated_successfully')
+        ]);
+    }
+
+    /**
+     * Handle request to delete specific chat
+     *
+     * @param int $chatId
+     * @return JsonResponse
+     * @throws BindingResolutionException
+     * @throws UseCaseNotFoundException
+     */
+    public function delete(int $chatId): JsonResponse
+    {
+        /** @var Model $user */
+        $user = auth()->user();
+
+        $inputDto = new DeleteChatInputDTO();
+        $inputDto->id = $chatId;
+        $inputDto->currentUserId = $user->id;
+
+        try {
+            $useCase = $this->useCaseFactory->createUseCase(UseCaseSystemNamesEnum::DELETE_CHAT);
+            $useCase->setInputDTO($inputDto);
+            $useCase->execute();
+        } catch (ChatDoesntExistException) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => __('messages.not_found'),
+                ],
+                Response::HTTP_NOT_FOUND
+            );
+        } catch (ForbiddenException) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => __('messages.forbidden'),
+                ],
+                Response::HTTP_FORBIDDEN
+            );
+        }
+
+        return \response()->json([
+            'success' => true,
+            'message' => __('messages.chat_deleted_successfully')
         ]);
     }
 }

@@ -15,7 +15,15 @@ interface IMessageService
      * Create chat message
      *
      * @param CreateMessageDTO $dto
-     * @return MessageDTO
+     * @return void
      */
     public function create(CreateMessageDTO $dto): void;
+
+    /**
+     * Delete all chat messages
+     *
+     * @param int $chatId
+     * @return void
+     */
+    public function deleteChatMessages(int $chatId): void;
 }

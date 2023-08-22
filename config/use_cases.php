@@ -2,6 +2,7 @@
 
 use App\Enums\UseCaseSystemNamesEnum;
 use App\UseCases\Chat\CreateChatUseCase;
+use App\UseCases\Chat\DeleteChatUseCase;
 use App\UseCases\Chat\GetUserChatsUseCase;
 use App\UseCases\Chat\UpdateChatUseCase;
 use App\UseCases\ChatUser\CreateChatUserUseCase;
@@ -17,6 +18,7 @@ return [
         UseCaseSystemNamesEnum::LOGIN_USER => LoginUserUseCase::class,
         UseCaseSystemNamesEnum::CREATE_CHAT => CreateChatUseCase::class,
         UseCaseSystemNamesEnum::UPDATE_CHAT => UpdateChatUseCase::class,
+        UseCaseSystemNamesEnum::DELETE_CHAT => DeleteChatUseCase::class,
         UseCaseSystemNamesEnum::GET_USER_CHATS => GetUserChatsUseCase::class,
         UseCaseSystemNamesEnum::CREATE_CHAT_USER => CreateChatUserUseCase::class,
         UseCaseSystemNamesEnum::CREATE_MESSAGE => CreateMessageUseCase::class,

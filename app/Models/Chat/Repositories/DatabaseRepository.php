@@ -146,4 +146,14 @@ final class DatabaseRepository extends BaseDatabaseRepository implements IChatDa
 
         return $dto;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function deleteChat(int $chatId): void
+    {
+        $query = $this->getLeaderQuery();
+        $query->where('id', $chatId);
+        $query->delete();
+    }
 }
