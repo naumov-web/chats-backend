@@ -358,6 +358,49 @@ paths:
           schema:
             $ref: "#/definitions/ValidationErrorResponseModel"
 
+  /v1/account/chats/{chatId}/users/join:
+    post:
+      tags:
+        - chats
+      summary: Join to chat
+      description: Join to specific public chat
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: X-Locale
+          type: string
+          enum:
+            - ru
+            - en
+        - in: path
+          name: chatId
+          required: true
+          description: "Id of chat"
+          type: integer
+      responses:
+        201:
+          description: "Successfull operation"
+          schema:
+            $ref: "#/definitions/DefaultSuccessResponseModel"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/DefaultErrorResponseModel"
+        403:
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/DefaultErrorResponseModel"
+        404:
+          description: "Not found"
+          schema:
+            $ref: "#/definitions/DefaultErrorResponseModel"
+
   /v1/account/chats/{chatId}/messages:
     post:
       tags:
@@ -582,7 +625,7 @@ definitions:
         type: boolean
       message:
         type: string
-      chat_types:
+      chatTypes:
         type: array
         items:
           $ref: "#/definitions/DefaultHandbookItemResponseModel"

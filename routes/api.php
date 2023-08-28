@@ -25,7 +25,10 @@ Route::prefix('/v1')
 
                 Route::prefix('/chats')->group(function () {
                     Route::post('/{chatId}/messages', 'MessageController@create');
+                    Route::post('/{chatId}/users/join', 'ChatUserController@join');
                 });
             });
         });
+
+        Route::get('/handbook', 'HandbookController@index');
     });

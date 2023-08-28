@@ -45,6 +45,12 @@ final class UseCaseSystemNamesEnum
     public const DELETE_CHAT = 'deleteChat';
 
     /**
+     * Use case for joining public chat
+     * @var string
+     */
+    public const JOIN_PUBLIC_CHAT = 'joinPublicChat';
+
+    /**
      * Use case for getting of user's chats
      * @var string
      */
@@ -61,4 +67,10 @@ final class UseCaseSystemNamesEnum
      * @var string
      */
     public const CREATE_MESSAGE = 'createMessage';
+
+    /**
+     * Use case for getting of handbook
+     * @var string
+     */
+    public const GET_HANDBOOK = 'getHandbook';
 }

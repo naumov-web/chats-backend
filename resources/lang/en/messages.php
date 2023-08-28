@@ -11,8 +11,10 @@ return [
     'chat_with_name_already_exists' => 'Chat with this name already exists!',
     'chats_list_loaded_successfully' => 'Chats list loaded successfully.',
     'chat_user_created_successfully' => 'Chat user created successfully.',
+    'user_joined_chat' => 'User has joined chat.',
     'char_user_already_exists' => 'Chat user already exists!',
     'message_created_successfully' => 'Message created successfully.',
+    'handbook_loaded_successfully' => 'Handbook loaded successfully.',
 
     'forbidden' => 'Forbidden!',
     'not_found' => 'Not found!',
