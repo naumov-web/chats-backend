@@ -402,6 +402,70 @@ paths:
             $ref: "#/definitions/DefaultErrorResponseModel"
 
   /v1/account/chats/{chatId}/messages:
+    get:
+      tags:
+        - messages
+      summary: Get chat messages
+      description: Get messages for specific chat
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: X-Locale
+          type: string
+          enum:
+            - ru
+            - en
+        - in: path
+          name: chatId
+          required: true
+          description: "Id of chat"
+          type: integer
+        - in: query
+          name: limit
+          type: integer
+          description: Limit of items in response
+        - in: query
+          name: offset
+          type: integer
+          description: Offset of items in response
+        - in: query
+          name: sortBy
+          type: string
+          description: Sort by column
+          enum:
+            - id
+            - username
+            - createdAt
+        - in: query
+          name: sortDirection
+          type: string
+          description: Sort direction
+          enum:
+            - asc
+            - desc
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/ChatMessagesListResponseModel"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/DefaultErrorResponseModel"
+        403:
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/DefaultErrorResponseModel"
+        404:
+          description: "Not found"
+          schema:
+            $ref: "#/definitions/DefaultErrorResponseModel"
     post:
       tags:
         - messages
@@ -595,6 +659,34 @@ definitions:
       name:
         type: string
       typeId:
+        type: integer
+      createdAt:
+        type: string
+
+  # Get chat messages
+
+  ChatMessagesListResponseModel:
+    type: object
+    properties:
+      success:
+        type: boolean
+      message:
+        type: string
+      count:
+        type: integer
+      items:
+        type: array
+        items:
+          $ref: "#/definitions/ChatMessageResponseModel"
+
+  ChatMessageResponseModel:
+    type: object
+    properties:
+      id:
+        type: integer
+      username:
+        type: string
+      text:
         type: integer
       createdAt:
         type: string
