@@ -2,7 +2,15 @@
 
 namespace App\Models\Handbook\DTO;
 
-class HandbookDTO
+/**
+ * Class HandbookDTO
+ * @package App\Models\Handbook\DTO
+ */
+final class HandbookDTO
 {
-
+    /**
+     * Chat types list
+     * @var DefaultHandbookItemDTO[]
+     */
+    public array $chatTypes = [];
 }

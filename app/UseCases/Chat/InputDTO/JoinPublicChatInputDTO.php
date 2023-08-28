@@ -5,10 +5,10 @@ namespace App\UseCases\Chat\InputDTO;
 use App\UseCases\Base\DTO\BaseUseCaseDTO;
 
 /**
- * Class JoinChatInputDTO
+ * Class JoinPublicChatInputDTO
  * @package App\UseCases\Chat\InputDTO
  */
-final class JoinChatInputDTO extends BaseUseCaseDTO
+final class JoinPublicChatInputDTO extends BaseUseCaseDTO
 {
     /**
      * Chat id value

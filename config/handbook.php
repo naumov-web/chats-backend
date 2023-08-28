@@ -7,11 +7,11 @@ return [
     'chatTypes' => [
         new DefaultHandbookItemDTO(
             id: TypesEnum::PUBLIC,
-            name: __('handbooks.chat_type_public')
+            translationKeyName: 'handbooks.chat_type_public'
         ),
         new DefaultHandbookItemDTO(
             id: TypesEnum::PRIVATE,
-            name: __('handbooks.chat_type_private')
+            translationKeyName: 'handbooks.chat_type_private'
         ),
     ]
 ];

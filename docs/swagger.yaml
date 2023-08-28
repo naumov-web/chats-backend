@@ -358,7 +358,7 @@ paths:
           schema:
             $ref: "#/definitions/ValidationErrorResponseModel"
 
-  /v1/account/chats/{chatId}/join:
+  /v1/account/chats/{chatId}/users/join:
     post:
       tags:
         - chats
@@ -625,7 +625,7 @@ definitions:
         type: boolean
       message:
         type: string
-      chat_types:
+      chatTypes:
         type: array
         items:
           $ref: "#/definitions/DefaultHandbookItemResponseModel"

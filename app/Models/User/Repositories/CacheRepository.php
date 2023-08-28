@@ -24,7 +24,7 @@ final class CacheRepository implements IUserCacheRepository
      */
     public function getVersionNumber(): string
     {
-        return '1';
+        return '2';
     }
 
     /**

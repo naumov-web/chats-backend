@@ -3,15 +3,15 @@
 namespace App\Models\Handbook\DTO;
 
 /**
- * Class DefaultHandbookDTO
+ * Class DefaultHandbookItemDTO
  * @package App\Models\Handbook\DTO
  */
-final class DefaultHandbookDTO
+final class DefaultHandbookItemDTO
 {
     /**
      * DefaultHandbookDTO constructor
      * @param int $id
-     * @param string $name
+     * @param string $translationKeyName
      */
-    public function __construct(public int $id, public string $name) {}
+    public function __construct(public int $id, public string $translationKeyName) {}
 }
