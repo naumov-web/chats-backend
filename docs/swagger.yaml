@@ -440,7 +440,6 @@ paths:
           description: Sort by column
           enum:
             - id
-            - username
             - createdAt
         - in: query
           name: sortDirection
