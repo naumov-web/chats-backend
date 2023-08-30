@@ -4,7 +4,6 @@ namespace Tests\UseCase\Message;
 
 use App\Enums\UseCaseSystemNamesEnum;
 use App\Models\Chat;
-use App\Models\ChatUser;
 use App\Models\Message;
 use App\Models\User;
 use App\UseCases\Base\Exceptions\UseCaseNotFoundException;
