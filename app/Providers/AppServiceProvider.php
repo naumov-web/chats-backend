@@ -62,6 +62,10 @@ class AppServiceProvider extends ServiceProvider
             Message\Services\Service::class
         );
         $this->app->bind(
+            Message\Contracts\IMessageCacheRepository::class,
+            Message\Repositories\CacheRepository::class
+        );
+        $this->app->bind(
             Message\Contracts\IMessageDatabaseRepository::class,
             Message\Repositories\DatabaseRepository::class
         );

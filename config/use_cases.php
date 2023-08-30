@@ -9,6 +9,7 @@ use App\UseCases\Chat\UpdateChatUseCase;
 use App\UseCases\ChatUser\CreateChatUserUseCase;
 use App\UseCases\Handbook\GetHandbookUseCase;
 use App\UseCases\Message\CreateMessageUseCase;
+use App\UseCases\Message\GetMessagesUseCase;
 use App\UseCases\User\LoginUserUseCase;
 use App\UseCases\User\RegisterRandomUserUseCase;
 use App\UseCases\User\RegisterUserUseCase;
@@ -25,6 +26,7 @@ return [
         UseCaseSystemNamesEnum::GET_USER_CHATS => GetUserChatsUseCase::class,
         UseCaseSystemNamesEnum::CREATE_CHAT_USER => CreateChatUserUseCase::class,
         UseCaseSystemNamesEnum::CREATE_MESSAGE => CreateMessageUseCase::class,
+        UseCaseSystemNamesEnum::GET_MESSAGES => GetMessagesUseCase::class,
         UseCaseSystemNamesEnum::GET_HANDBOOK => GetHandbookUseCase::class,
     ]
 ];

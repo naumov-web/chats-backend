@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\Chat;
+namespace App\Http\Requests\Api\V1\Message;
 
 use App\Http\Requests\Api\BaseListRequest;
 
 /**
- * Class IndexMyRequest
- * @package App\Http\Requests\Api\V1\Chat
+ * Class IndexRequest
+ * @package App\Http\Requests\Api\V1\Message
  */
-final class IndexMyRequest extends BaseListRequest
+final class IndexRequest extends BaseListRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -20,8 +20,6 @@ final class IndexMyRequest extends BaseListRequest
         return $this->getListRules(
             [
                 'id',
-                'name',
-                'typeId',
                 'createdAt'
             ]
         );

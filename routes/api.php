@@ -25,6 +25,7 @@ Route::prefix('/v1')
 
                 Route::prefix('/chats')->group(function () {
                     Route::post('/{chatId}/messages', 'MessageController@create');
+                    Route::get('/{chatId}/messages', 'MessageController@index');
                     Route::post('/{chatId}/users/join', 'ChatUserController@join');
                 });
             });

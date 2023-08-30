@@ -23,6 +23,12 @@ final class MessageDTO extends ModelDTO
     public string $chatId;
 
     /**
+     * Username value
+     * @var string
+     */
+    public string $username;
+
+    /**
      * User id value
      * @var string
      */

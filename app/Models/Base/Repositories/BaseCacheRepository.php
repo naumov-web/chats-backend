@@ -6,10 +6,10 @@ use App\Models\Base\DTO\ListDTO;
 use Illuminate\Support\Facades\Cache;
 
 /**
- * Class IBaseCacheRepository
+ * Class BaseCacheRepository
  * @package App\Models\Base\Repositories
  */
-abstract class IBaseCacheRepository
+abstract class BaseCacheRepository
 {
     /**
      * Get list DTO instance from cache
