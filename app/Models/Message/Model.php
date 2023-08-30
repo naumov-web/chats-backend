@@ -3,6 +3,8 @@
 namespace App\Models\Message;
 
 use App\Models\BaseDBModel;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class Model
@@ -21,4 +23,14 @@ final class Model extends BaseDBModel
      * @var string
      */
     protected $table = 'messages';
+
+    /**
+     * Get user relation
+     *
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User\Model::class);
+    }
 }

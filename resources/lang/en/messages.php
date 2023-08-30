@@ -14,6 +14,7 @@ return [
     'user_joined_chat' => 'User has joined chat.',
     'char_user_already_exists' => 'Chat user already exists!',
     'message_created_successfully' => 'Message created successfully.',
+    'messages_list_loaded_successfully' => 'Messages list loaded successfully.',
     'handbook_loaded_successfully' => 'Handbook loaded successfully.',
 
     'forbidden' => 'Forbidden!',

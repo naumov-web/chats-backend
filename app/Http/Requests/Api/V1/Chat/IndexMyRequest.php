@@ -22,7 +22,7 @@ final class IndexMyRequest extends BaseListRequest
                 'id',
                 'name',
                 'typeId',
-                'createAt'
+                'createdAt'
             ]
         );
     }

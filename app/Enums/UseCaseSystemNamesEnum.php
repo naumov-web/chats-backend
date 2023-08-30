@@ -69,6 +69,12 @@ final class UseCaseSystemNamesEnum
     public const CREATE_MESSAGE = 'createMessage';
 
     /**
+     * Use case for getting of chat messages
+     * @var string
+     */
+    public const GET_MESSAGES = 'getMessages';
+
+    /**
      * Use case for getting of handbook
      * @var string
      */

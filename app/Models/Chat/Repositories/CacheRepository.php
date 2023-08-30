@@ -4,7 +4,7 @@ namespace App\Models\Chat\Repositories;
 
 use App\Models\Base\DTO\IndexDTO;
 use App\Models\Base\DTO\ListDTO;
-use App\Models\Base\Repositories\IBaseCacheRepository;
+use App\Models\Base\Repositories\BaseCacheRepository;
 use App\Models\Chat\Contracts\IChatCacheRepository;
 use App\Models\Chat\Contracts\IChatDatabaseRepository;
 use App\Models\Chat\DTO\ChatDTO;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Cache;
  * Class CacheRepository
  * @package App\Models\Chat\Repositories
  */
-final class CacheRepository extends IBaseCacheRepository implements IChatCacheRepository
+final class CacheRepository extends BaseCacheRepository implements IChatCacheRepository
 {
     /**
      * CacheRepository constructor
